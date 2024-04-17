@@ -1,0 +1,11 @@
+{
+  "devDependencies": {
+    "tailwindcss": "^3.4.3"
+  },
+  "scripts": {
+    "tlw": "npx tailwindcss -i ./input.css -o ./style.css --watch"
+  },
+  "dependencies": {
+    "puppeteer": "^22.6.5"
+  }
+}

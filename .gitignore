@@ -1,0 +1,9 @@
+/bootstrap/compiled.php
+/vendor
+
+
+.DS_Store
+/node_modules
+/docs
+
+

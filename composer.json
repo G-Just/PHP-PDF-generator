@@ -1,0 +1,6 @@
+{
+    "require": {
+        "dompdf/dompdf": "^2.0",
+        "spatie/browsershot": "^4.0"
+    }
+}
