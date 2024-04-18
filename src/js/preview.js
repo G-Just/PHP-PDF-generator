@@ -15,6 +15,11 @@ function changePdfFields(event, target) {
   const companyAddress = document.getElementById("company_address");
   const companyPhone = document.getElementById("company_phone");
 
+  const documentTitle = document.getElementById("document_title");
+  const documentNumber = document.getElementById("document_number");
+  const documentDate = document.getElementById("document_date");
+  const documentRecipient = document.getElementById("document_recipient");
+
   switch (target) {
     case "name":
       companyName.innerHTML = event.target.value;
@@ -24,6 +29,18 @@ function changePdfFields(event, target) {
       break;
     case "phone":
       companyPhone.innerHTML = event.target.value;
+      break;
+    case "title":
+      documentTitle.innerHTML = event.target.value;
+      break;
+    case "number":
+      documentNumber.innerHTML = event.target.value;
+      break;
+    case "date":
+      documentDate.innerHTML = event.target.value;
+      break;
+    case "recipient":
+      documentRecipient.innerHTML = event.target.value.replaceAll("\n", "<br />");
       break;
   }
 }
