@@ -578,6 +578,22 @@ video {
   left: 13rem;
 }
 
+.-left-52 {
+  left: -13rem;
+}
+
+.-left-96 {
+  left: -24rem;
+}
+
+.-left-\[50rem\] {
+  left: -50rem;
+}
+
+.left-\[12rem\] {
+  left: 12rem;
+}
+
 .col-span-2 {
   grid-column: span 2 / span 2;
 }

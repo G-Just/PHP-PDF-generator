@@ -44,3 +44,19 @@ function changePdfFields(event, target) {
       break;
   }
 }
+
+function changeForm(type) {
+  const first = document.getElementById("0");
+  const second = document.getElementById("1");
+
+  switch (type) {
+    case "next":
+      first.style.left = "-50rem";
+      second.style.left = "12rem";
+      break;
+    case "prev":
+      second.style.left = "-50rem";
+      first.style.left = "12rem";
+      break;
+  }
+}
