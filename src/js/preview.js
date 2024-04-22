@@ -1,3 +1,8 @@
+let USDollar = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+});
+
 const container = document.getElementById("preview");
 
 fetch("./pdf.html")
@@ -19,6 +24,7 @@ function changePdfFields(event, target) {
   const documentNumber = document.getElementById("document_number");
   const documentDate = document.getElementById("document_date");
   const documentRecipient = document.getElementById("document_recipient");
+  const documentPayment = document.getElementById("document_payment");
 
   switch (target) {
     case "name":
@@ -42,12 +48,15 @@ function changePdfFields(event, target) {
     case "recipient":
       documentRecipient.innerHTML = event.target.value.replaceAll("\n", "<br />");
       break;
+    case "payment":
+      documentPayment.innerHTML = event.target.value.replaceAll("\n", "<br />");
+      break;
   }
 }
 
 function changeForm(type) {
-  const first = document.getElementById("0");
-  const second = document.getElementById("1");
+  const first = document.getElementById("first");
+  const second = document.getElementById("second");
 
   switch (type) {
     case "next":
@@ -60,3 +69,32 @@ function changeForm(type) {
       break;
   }
 }
+
+let rowCount = 1;
+function addRow() {
+  const row = document.getElementById("row");
+}
+
+function changeItem(id, type, event) {
+  switch (type) {
+    case "name":
+      document.querySelector(`#r${id}>#${type}`).innerHTML = event.target.value;
+      break;
+    case "quant":
+      document.querySelector(`#r${id}>#${type}`).innerHTML = event.target.value;
+      document.querySelector(`#r${id}>#total`).innerHTML = USDollar.format(
+        event.target.value * document.querySelector(`#r${id}>#price`).innerHTML.slice(1)
+      );
+      break;
+    case "price":
+      document.querySelector(`#r${id}>#${type}`).innerHTML = USDollar.format(
+        event.target.value
+      );
+      document.querySelector(`#r${id}>#total`).innerHTML = USDollar.format(
+        event.target.value * document.querySelector(`#r${id}>#quant`).innerHTML
+      );
+      break;
+  }
+}
+
+function calculateGrandTotal() {}
