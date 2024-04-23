@@ -17,10 +17,9 @@ fetch("./pdf.html")
 
 function displayLogo(event) {
   const preview = document.getElementById("preview_logo");
+  const inp = document.getElementById("company_logo");
+  inp.value = URL.createObjectURL(event.target.files[0]);
   preview.src = URL.createObjectURL(event.target.files[0]);
-  preview.onload = function () {
-    URL.revokeObjectURL(preview.src);
-  };
 }
 
 function changePdfFields(event, target) {
@@ -80,7 +79,8 @@ function changeForm(type) {
 
 let rowCount = 2;
 
-function addRow() {
+function addRow(event) {
+  event.preventDefault();
   fetch("./templates/inputRow.html")
     .then((response) => {
       if (response.ok) {
@@ -114,7 +114,8 @@ function addRow() {
     });
 }
 
-function removeRow() {
+function removeRow(event) {
+  event.preventDefault();
   if (rowCount > 1) {
     document.getElementById(`row${rowCount}`).remove();
     document.getElementById(`r${rowCount}`).remove();
@@ -133,6 +134,8 @@ function changeItem(id, type, event) {
       document.querySelector(`#r${id}>#total`).innerHTML = USDollar.format(
         event.target.value * document.querySelector(`#r${id}>#price`).innerHTML.slice(1)
       );
+      document.getElementById("total_price").value =
+        event.target.value * document.querySelector(`#r${id}>#price`).innerHTML.slice(1);
       calculateGrandTotal();
       break;
     case "price":
@@ -142,6 +145,8 @@ function changeItem(id, type, event) {
       document.querySelector(`#r${id}>#total`).innerHTML = USDollar.format(
         event.target.value * document.querySelector(`#r${id}>#quant`).innerHTML
       );
+      document.getElementById("total_price").value =
+        event.target.value * document.querySelector(`#r${id}>#price`).innerHTML.slice(1);
       calculateGrandTotal();
       break;
   }

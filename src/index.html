@@ -12,342 +12,345 @@
     <script src="./js/preview.js" defer></script>
   </head>
 
-  <body class="grid grid-cols-4">
-    <div id="first" class="fixed flex h-screen left-[12rem]">
-      <div class="p-2 m-auto shadow outline outline-gray-300 rounded-xl w-[500px]">
-        <div>
-          <div class="bg-white rounded-lg shadow">
-            <div class="flex">
-              <div class="flex-1 py-4 pl-5 overflow-hidden">
-                <h1 class="inline text-2xl font-semibold leading-none">Head</h1>
+  <body>
+    <form class="grid grid-cols-4" action="./pdfAssembler.php" method="POST">
+      <div id="first" class="fixed flex h-screen left-[12rem]">
+        <div class="p-2 m-auto shadow outline outline-gray-300 rounded-xl w-[500px]">
+          <div>
+            <div class="bg-white rounded-lg shadow">
+              <div class="flex">
+                <div class="flex-1 py-4 pl-5 overflow-hidden">
+                  <h1 class="inline text-2xl font-semibold leading-none">Head</h1>
+                </div>
+              </div>
+              <div class="px-5 pb-5">
+                <!-- Logo Upload -->
+                <div class="flex items-center justify-center pb-4">
+                  <label
+                    class="flex flex-col items-center w-64 px-4 py-3 tracking-wide uppercase transition-all duration-300 ease-in-out bg-white border rounded-lg shadow-lg cursor-pointer hover:bg-gray-300 hover:border-black"
+                  >
+                    <img class="w-10 h-1w-10" src="./assets/upload.svg" alt="Upload" />
+                    <span class="mt-2 text-base leading-normal">Upload Logo</span>
+                    <input
+                      accept="image/*"
+                      type="file"
+                      class="hidden"
+                      onchange="displayLogo(event)"
+                    />
+                  </label>
+                  <input type="hidden" name="company_logo" id="company_logo" />
+                </div>
+
+                <!-- Document header section -->
+                <div class="flex flex-col gap-3">
+                  <div class="relative">
+                    <label
+                      class="absolute px-2 text-sm tracking-wide bg-white left-2 -top-1"
+                      >Name</label
+                    >
+                    <input
+                      placeholder="Trinity LLC."
+                      name="company_name"
+                      oninput="changePdfFields(event, 'name')"
+                      class="w-full px-4 py-2 mt-2 text-base placeholder-gray-400 border-2 border-gray-400 rounded-lg"
+                    />
+                  </div>
+
+                  <div class="relative">
+                    <label
+                      class="absolute px-2 text-sm tracking-wide bg-white left-2 -top-1"
+                      >Address</label
+                    >
+                    <input
+                      placeholder="999 Example str. CityX"
+                      name="company_address"
+                      oninput="changePdfFields(event, 'address')"
+                      class="w-full px-4 py-2 mt-2 text-base placeholder-gray-400 border-2 border-gray-400 rounded-lg"
+                    />
+                  </div>
+
+                  <div class="relative">
+                    <label
+                      class="absolute px-2 text-sm tracking-wide bg-white left-2 -top-1"
+                      >Phone</label
+                    >
+                    <input
+                      placeholder="+123-456-7890"
+                      name="company_phone"
+                      oninput="changePdfFields(event, 'phone')"
+                      class="w-full px-4 py-2 mt-2 text-base placeholder-gray-400 border-2 border-gray-400 rounded-lg"
+                    />
+                  </div>
+                </div>
+
+                <div class="flex items-center pt-3">
+                  <input
+                    type="checkbox"
+                    class="w-4 h-4 text-black bg-gray-300 border-none rounded-md focus:ring-transparent"
+                  /><label class="block ml-2 text-sm text-gray-900"
+                    >Save as default</label
+                  >
+                </div>
               </div>
             </div>
-            <div class="px-5 pb-5">
-              <!-- Logo Upload -->
-              <div class="flex items-center justify-center pb-4">
-                <label
-                  class="flex flex-col items-center w-64 px-4 py-3 tracking-wide uppercase transition-all duration-300 ease-in-out bg-white border rounded-lg shadow-lg cursor-pointer hover:bg-gray-300 hover:border-black"
-                >
-                  <img class="w-10 h-1w-10" src="./assets/upload.svg" alt="Upload" />
-                  <span class="mt-2 text-base leading-normal">Upload Logo</span>
-                  <input
-                    accept="image/*"
-                    type="file"
-                    class="hidden"
-                    onchange="displayLogo(event)"
-                  />
-                </label>
+
+            <!-- Document Body section -->
+            <div class="bg-white rounded-lg shadow">
+              <div class="px-5 pb-5">
+                <!-- Input fields -->
+                <div class="flex flex-col gap-3">
+                  <div class="relative">
+                    <label
+                      class="absolute px-2 text-sm tracking-wide bg-white left-2 -top-1"
+                      >Document Title</label
+                    >
+                    <input
+                      placeholder="INVOICE"
+                      name="document_title"
+                      oninput="changePdfFields(event, 'title')"
+                      class="w-full px-4 py-2 mt-2 text-base placeholder-gray-400 border-2 border-gray-400 rounded-lg"
+                    />
+                  </div>
+
+                  <div class="flex gap-4">
+                    <div class="relative w-full">
+                      <label
+                        class="absolute px-2 text-sm tracking-wide bg-white left-2 -top-1"
+                        >Document Number</label
+                      >
+                      <input
+                        placeholder="001"
+                        type="number"
+                        name="document_number"
+                        oninput="changePdfFields(event, 'number')"
+                        class="w-full px-4 py-2 mt-2 text-base placeholder-gray-400 border-2 border-gray-400 rounded-lg"
+                      />
+                    </div>
+                    <div class="relative">
+                      <label
+                        class="absolute px-2 text-sm tracking-wide bg-white left-2 -top-1"
+                        >Date</label
+                      >
+                      <input
+                        type="date"
+                        name="document_date"
+                        oninput="changePdfFields(event, 'date')"
+                        class="w-full px-4 py-2 mt-2 text-base placeholder-gray-400 border-2 border-gray-400 rounded-lg"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="relative">
+                    <label
+                      class="absolute px-2 text-sm tracking-wide bg-white left-2 -top-1"
+                      >Recipient</label
+                    >
+                    <textarea
+                      placeholder="Rec CO.
+123 Some ST.
+CityY 12345"
+                      rows="3"
+                      name="document_recipient"
+                      oninput="changePdfFields(event, 'recipient')"
+                      class="w-full px-4 py-2 mt-2 text-base placeholder-gray-400 border-2 border-gray-400 rounded-lg"
+                    ></textarea>
+                  </div>
+                </div>
               </div>
-
-              <!-- Document header section -->
-              <div class="flex flex-col gap-3">
-                <div class="relative">
-                  <label
-                    class="absolute px-2 text-sm tracking-wide bg-white left-2 -top-1"
-                    >Name</label
-                  >
-                  <input
-                    placeholder="Trinity LLC."
-                    name="company_name"
-                    oninput="changePdfFields(event, 'name')"
-                    class="w-full px-4 py-2 mt-2 text-base placeholder-gray-400 border-2 border-gray-400 rounded-lg"
-                  />
-                </div>
-
-                <div class="relative">
-                  <label
-                    class="absolute px-2 text-sm tracking-wide bg-white left-2 -top-1"
-                    >Address</label
-                  >
-                  <input
-                    placeholder="999 Example str. CityX"
-                    name="company_address"
-                    oninput="changePdfFields(event, 'address')"
-                    class="w-full px-4 py-2 mt-2 text-base placeholder-gray-400 border-2 border-gray-400 rounded-lg"
-                  />
-                </div>
-
-                <div class="relative">
-                  <label
-                    class="absolute px-2 text-sm tracking-wide bg-white left-2 -top-1"
-                    >Phone</label
-                  >
-                  <input
-                    placeholder="+123-456-7890"
-                    name="company_name"
-                    oninput="changePdfFields(event, 'phone')"
-                    class="w-full px-4 py-2 mt-2 text-base placeholder-gray-400 border-2 border-gray-400 rounded-lg"
-                  />
-                </div>
-              </div>
-
-              <div class="flex items-center pt-3">
-                <input
-                  type="checkbox"
-                  class="w-4 h-4 text-black bg-gray-300 border-none rounded-md focus:ring-transparent"
-                /><label for="safeAdress" class="block ml-2 text-sm text-gray-900"
-                  >Save as default</label
+            </div>
+            <!-- Buttons -->
+            <hr class="mt-4" />
+            <div class="flex flex-row-reverse gap-2 p-3">
+              <div class="flex-initial">
+                <button
+                  onclick="changeForm('next')"
+                  type="button"
+                  class="flex items-center px-5 py-2.5 font-medium tracking-wide text-white capitalize bg-black rounded-md transition-all ease-in hover:bg-stone-950 duration-150"
                 >
+                  Next &rarr;
+                </button>
+              </div>
+              <div class="flex-initial">
+                <button
+                  type="button"
+                  class="hover:bg-gray-400 flex items-center px-5 py-2.5 font-medium tracking-wide text-black capitalize rounded-md bg-gray-200 duration-150 transition-all ease-in"
+                >
+                  Reset
+                </button>
               </div>
             </div>
           </div>
+        </div>
+      </div>
+      <div class="flex col-span-2 col-start-3 mb-20">
+        <div class="my-10 border border-black shadow-2xl">
+          <!-- Preview pdf page -->
+          <div id="preview" class="w-[21cm] h-[29.7cm] scale-75 -mt-20"></div>
+        </div>
+      </div>
 
-          <!-- Document Body section -->
-          <div class="bg-white rounded-lg shadow">
-            <div class="px-5 pb-5">
-              <!-- Input fields -->
-              <div class="flex flex-col gap-3">
-                <div class="relative">
-                  <label
-                    class="absolute px-2 text-sm tracking-wide bg-white left-2 -top-1"
-                    >Document Title</label
-                  >
-                  <input
-                    placeholder="INVOICE"
-                    name="document_title"
-                    oninput="changePdfFields(event, 'title')"
-                    class="w-full px-4 py-2 mt-2 text-base placeholder-gray-400 border-2 border-gray-400 rounded-lg"
-                  />
+      <!-- Form page 2 -->
+      <div id="second" class="fixed flex h-screen -left-[50rem]">
+        <div class="p-2 m-auto shadow outline outline-gray-300 rounded-xl w-[500px]">
+          <div>
+            <div class="bg-white rounded-lg shadow">
+              <div class="flex">
+                <div class="flex-1 py-4 pl-5 overflow-hidden">
+                  <h1 class="inline text-2xl font-semibold leading-none">Body</h1>
                 </div>
-
+              </div>
+              <!-- Document content section -->
+              <div class="px-5 pb-2" id="row1">
                 <div class="flex gap-4">
-                  <div class="relative w-full">
+                  <input type="hidden" name="total_price1" />
+                  <div class="relative w-[350px]">
                     <label
                       class="absolute px-2 text-sm tracking-wide bg-white left-2 -top-1"
-                      >Document Number</label
+                      >Item Description</label
                     >
                     <input
-                      placeholder="001"
+                      placeholder="Table"
+                      name="item_description[]"
+                      oninput="changeItem(1,'name', event)"
+                      class="w-full px-4 py-2 mt-2 text-base placeholder-gray-400 border-2 border-gray-400 rounded-lg"
+                    />
+                  </div>
+                  <div class="relative w-[150px]">
+                    <label class="absolute text-sm tracking-wide bg-white left-2 -top-1"
+                      >Quantity</label
+                    >
+                    <input
+                      placeholder="1"
                       type="number"
-                      name="document_number"
-                      oninput="changePdfFields(event, 'number')"
+                      name="item_quantity[]"
+                      oninput="changeItem(1, 'quant', event)"
+                      required
                       class="w-full px-4 py-2 mt-2 text-base placeholder-gray-400 border-2 border-gray-400 rounded-lg"
                     />
                   </div>
                   <div class="relative">
                     <label
                       class="absolute px-2 text-sm tracking-wide bg-white left-2 -top-1"
-                      >Date</label
+                      >Unit Price</label
                     >
                     <input
-                      type="date"
-                      name="document_date"
-                      oninput="changePdfFields(event, 'date')"
+                      placeholder="400"
+                      type="number"
+                      name="item_price[]"
+                      oninput="changeItem(1, 'price', event)"
+                      required
                       class="w-full px-4 py-2 mt-2 text-base placeholder-gray-400 border-2 border-gray-400 rounded-lg"
                     />
                   </div>
                 </div>
-
-                <div class="relative">
-                  <label
-                    class="absolute px-2 text-sm tracking-wide bg-white left-2 -top-1"
-                    >Recipient</label
-                  >
-                  <textarea
-                    placeholder="Rec CO.
-123 Some ST.
-CityY 12345"
-                    rows="3"
-                    name="document_recipient"
-                    oninput="changePdfFields(event, 'recipient')"
-                    class="w-full px-4 py-2 mt-2 text-base placeholder-gray-400 border-2 border-gray-400 rounded-lg"
-                  ></textarea>
+              </div>
+              <div class="px-5 pb-2" id="row2">
+                <div class="flex gap-4">
+                  <input type="hidden" name="total_price2" />
+                  <div class="relative w-[350px]">
+                    <label
+                      class="absolute px-2 text-sm tracking-wide bg-white left-2 -top-1"
+                      >Item Description</label
+                    >
+                    <input
+                      placeholder="Chair"
+                      name="item_description[]"
+                      oninput="changeItem(2,'name', event)"
+                      class="w-full px-4 py-2 mt-2 text-base placeholder-gray-400 border-2 border-gray-400 rounded-lg"
+                    />
+                  </div>
+                  <div class="relative w-[150px]">
+                    <label class="absolute text-sm tracking-wide bg-white left-2 -top-1"
+                      >Quantity</label
+                    >
+                    <input
+                      placeholder="3"
+                      type="number"
+                      name="item_quantity[]"
+                      oninput="changeItem(2, 'quant', event)"
+                      required
+                      class="w-full px-4 py-2 mt-2 text-base placeholder-gray-400 border-2 border-gray-400 rounded-lg"
+                    />
+                  </div>
+                  <div class="relative">
+                    <label
+                      class="absolute px-2 text-sm tracking-wide bg-white left-2 -top-1"
+                      >Unit Price</label
+                    >
+                    <input
+                      placeholder="200"
+                      type="number"
+                      name="item_price[]"
+                      oninput="changeItem(2, 'price', event)"
+                      required
+                      class="w-full px-4 py-2 mt-2 text-base placeholder-gray-400 border-2 border-gray-400 rounded-lg"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <!-- Buttons -->
-          <hr class="mt-4" />
-          <div class="flex flex-row-reverse gap-2 p-3">
-            <div class="flex-initial">
+            <div class="flex justify-center w-full gap-6 pt-2 pb-8">
               <button
-                onclick="changeForm('next')"
-                type="button"
-                class="flex items-center px-5 py-2.5 font-medium tracking-wide text-white capitalize bg-black rounded-md transition-all ease-in hover:bg-stone-950 duration-150"
+                onclick="addRow(event)"
+                class="p-2 border border-gray-600 rounded-lg hover:bg-gray-400"
               >
-                Next &rarr;
+                <img class="w-6 h-6" src="./assets/addRow.svg" alt="Add row" />
+              </button>
+              <button
+                onclick="removeRow(event)"
+                class="p-2 border border-gray-600 rounded-lg hover:bg-red-400"
+              >
+                <img class="w-6 h-6" src="./assets/removeRow.svg" alt="Remove row" />
               </button>
             </div>
-            <div class="flex-initial">
-              <button
-                type="button"
-                class="hover:bg-gray-400 flex items-center px-5 py-2.5 font-medium tracking-wide text-black capitalize rounded-md bg-gray-200 duration-150 transition-all ease-in"
-              >
-                Reset
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="flex col-span-2 col-start-3 mb-20">
-      <div class="my-10 border border-black shadow-2xl">
-        <!-- Preview pdf page -->
-        <div id="preview" class="w-[21cm] h-[29.7cm] scale-75 -mt-20"></div>
-      </div>
-    </div>
 
-    <!-- Form page 2 -->
-    <div id="second" class="fixed flex h-screen -left-[50rem]">
-      <div class="p-2 m-auto shadow outline outline-gray-300 rounded-xl w-[500px]">
-        <div>
-          <div class="bg-white rounded-lg shadow">
-            <div class="flex">
-              <div class="flex-1 py-4 pl-5 overflow-hidden">
-                <h1 class="inline text-2xl font-semibold leading-none">Body</h1>
-              </div>
-            </div>
-            <!-- Document content section -->
-            <div class="px-5 pb-2" id="row1">
-              <div class="flex gap-4">
-                <div class="relative w-[350px]">
-                  <label
-                    class="absolute px-2 text-sm tracking-wide bg-white left-2 -top-1"
-                    >Item Description</label
-                  >
-                  <input
-                    placeholder="Table"
-                    name="item_description[]"
-                    oninput="changeItem(1,'name', event)"
-                    class="w-full px-4 py-2 mt-2 text-base placeholder-gray-400 border-2 border-gray-400 rounded-lg"
-                  />
-                </div>
-                <div class="relative w-[150px]">
-                  <label class="absolute text-sm tracking-wide bg-white left-2 -top-1"
-                    >Quantity</label
-                  >
-                  <input
-                    placeholder="1"
-                    type="number"
-                    name="item_quantity[]"
-                    oninput="changeItem(1, 'quant', event)"
-                    required
-                    class="w-full px-4 py-2 mt-2 text-base placeholder-gray-400 border-2 border-gray-400 rounded-lg"
-                  />
-                </div>
-                <div class="relative">
-                  <label
-                    class="absolute px-2 text-sm tracking-wide bg-white left-2 -top-1"
-                    >Unit Price</label
-                  >
-                  <input
-                    placeholder="400"
-                    type="number"
-                    name="item_price[]"
-                    oninput="changeItem(1, 'price', event)"
-                    required
-                    class="w-full px-4 py-2 mt-2 text-base placeholder-gray-400 border-2 border-gray-400 rounded-lg"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="px-5 pb-2" id="row2">
-              <div class="flex gap-4">
-                <div class="relative w-[350px]">
-                  <label
-                    class="absolute px-2 text-sm tracking-wide bg-white left-2 -top-1"
-                    >Item Description</label
-                  >
-                  <input
-                    placeholder="Chair"
-                    name="item_description[]"
-                    oninput="changeItem(2,'name', event)"
-                    class="w-full px-4 py-2 mt-2 text-base placeholder-gray-400 border-2 border-gray-400 rounded-lg"
-                  />
-                </div>
-                <div class="relative w-[150px]">
-                  <label class="absolute text-sm tracking-wide bg-white left-2 -top-1"
-                    >Quantity</label
-                  >
-                  <input
-                    placeholder="3"
-                    type="number"
-                    name="item_quantity[]"
-                    oninput="changeItem(2, 'quant', event)"
-                    required
-                    class="w-full px-4 py-2 mt-2 text-base placeholder-gray-400 border-2 border-gray-400 rounded-lg"
-                  />
-                </div>
-                <div class="relative">
-                  <label
-                    class="absolute px-2 text-sm tracking-wide bg-white left-2 -top-1"
-                    >Unit Price</label
-                  >
-                  <input
-                    placeholder="200"
-                    type="number"
-                    name="item_price[]"
-                    oninput="changeItem(2, 'price', event)"
-                    required
-                    class="w-full px-4 py-2 mt-2 text-base placeholder-gray-400 border-2 border-gray-400 rounded-lg"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="flex justify-center w-full gap-6 pt-2 pb-8">
-            <button
-              onclick="addRow()"
-              class="p-2 border border-gray-600 rounded-lg hover:bg-gray-400"
-            >
-              <img class="w-6 h-6" src="./assets/addRow.svg" alt="Add row" />
-            </button>
-            <button
-              onclick="removeRow()"
-              class="p-2 border border-gray-600 rounded-lg hover:bg-red-400"
-            >
-              <img class="w-6 h-6" src="./assets/removeRow.svg" alt="Remove row" />
-            </button>
-          </div>
-
-          <!-- Footer -->
-          <div class="bg-white rounded-lg shadow">
-            <div class="px-5 pb-5">
-              <!-- Input fields -->
-              <div class="flex flex-col gap-3">
-                <div class="relative">
-                  <label
-                    class="absolute px-2 text-sm tracking-wide bg-white left-2 -top-1"
-                    >Payment Information</label
-                  >
-                  <textarea
-                    placeholder="Monopoly Bank
+            <!-- Footer -->
+            <div class="bg-white rounded-lg shadow">
+              <div class="px-5 pb-5">
+                <!-- Input fields -->
+                <div class="flex flex-col gap-3">
+                  <div class="relative">
+                    <label
+                      class="absolute px-2 text-sm tracking-wide bg-white left-2 -top-1"
+                      >Payment Information</label
+                    >
+                    <textarea
+                      placeholder="Monopoly Bank
 Account name: Trinity LLC.
 Account NO: 123-456-7890"
-                    rows="3"
-                    name="document_recipient"
-                    oninput="changePdfFields(event, 'payment')"
-                    class="w-full px-4 py-2 mt-2 text-base placeholder-gray-400 border-2 border-gray-400 rounded-lg"
-                  ></textarea>
+                      rows="3"
+                      name="document_recipient"
+                      oninput="changePdfFields(event, 'payment')"
+                      class="w-full px-4 py-2 mt-2 text-base placeholder-gray-400 border-2 border-gray-400 rounded-lg"
+                    ></textarea>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <!-- Buttons -->
-          <hr class="mt-4" />
-          <div class="flex flex-row-reverse gap-2 p-3">
-            <div class="flex-initial">
-              <a href="./pdfGenerator.php">
+            <!-- Buttons -->
+            <hr class="mt-4" />
+            <div class="flex flex-row-reverse gap-2 p-3">
+              <div class="flex-initial">
                 <button
-                  type="button"
+                  type="submit"
                   class="flex items-center px-5 py-2.5 font-medium tracking-wide text-white capitalize bg-black rounded-md transition-all ease-in hover:bg-stone-950 duration-150"
                 >
                   Generate
                 </button>
-              </a>
-            </div>
-            <div class="flex-initial">
-              <button
-                onclick="changeForm('prev')"
-                type="button"
-                class="hover:bg-gray-400 flex items-center px-5 py-2.5 font-medium tracking-wide text-black capitalize rounded-md bg-gray-200 duration-150 transition-all ease-in"
-              >
-                &larr; Previous
-              </button>
+              </div>
+              <div class="flex-initial">
+                <button
+                  onclick="changeForm('prev')"
+                  type="button"
+                  class="hover:bg-gray-400 flex items-center px-5 py-2.5 font-medium tracking-wide text-black capitalize rounded-md bg-gray-200 duration-150 transition-all ease-in"
+                >
+                  &larr; Previous
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </form>
   </body>
 </html>
