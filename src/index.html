@@ -194,7 +194,7 @@ CityY 12345"
               </div>
             </div>
             <!-- Document content section -->
-            <div class="px-5 pb-2" id="row">
+            <div class="px-5 pb-2" id="row1">
               <div class="flex gap-4">
                 <div class="relative w-[350px]">
                   <label
@@ -238,7 +238,7 @@ CityY 12345"
               </div>
             </div>
             <!-- 2nd Row -->
-            <div class="px-5 pb-2" id="row">
+            <div class="px-5 pb-2" id="row2">
               <div class="flex gap-4">
                 <div class="relative w-[350px]">
                   <label
@@ -282,6 +282,20 @@ CityY 12345"
               </div>
             </div>
           </div>
+          <div class="flex justify-center w-full gap-6 pt-2 pb-8">
+            <button
+              onclick="addRow()"
+              class="p-2 border border-gray-600 rounded-lg hover:bg-gray-400"
+            >
+              <img class="w-6 h-6" src="./assets/addRow.svg" alt="Add row" />
+            </button>
+            <button
+              onclick="removeRow()"
+              class="p-2 border border-gray-600 rounded-lg hover:bg-red-400"
+            >
+              <img class="w-6 h-6" src="./assets/removeRow.svg" alt="Remove row" />
+            </button>
+          </div>
 
           <!-- Footer -->
           <div class="bg-white rounded-lg shadow">
@@ -306,7 +320,6 @@ Account NO: 123-456-7890"
               </div>
             </div>
           </div>
-
           <!-- Buttons -->
           <hr class="mt-4" />
           <div class="flex flex-row-reverse gap-2 p-3">

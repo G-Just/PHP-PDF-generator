@@ -70,9 +70,12 @@ function changeForm(type) {
   }
 }
 
-let rowCount = 1;
+let rowCount = 2;
 function addRow() {
-  const row = document.getElementById("row");
+  // TODO: Add row based on rowCount and copy the prev one
+}
+function removeRow() {
+  // TODO: Remove row based on rowCount
 }
 
 function changeItem(id, type, event) {
