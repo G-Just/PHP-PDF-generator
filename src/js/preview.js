@@ -15,6 +15,14 @@ fetch("./pdf.html")
     container.innerHTML = htmlPreview;
   });
 
+function displayLogo(event) {
+  const preview = document.getElementById("preview_logo");
+  preview.src = URL.createObjectURL(event.target.files[0]);
+  preview.onload = function () {
+    URL.revokeObjectURL(preview.src);
+  };
+}
+
 function changePdfFields(event, target) {
   const companyName = document.getElementById("company_name");
   const companyAddress = document.getElementById("company_address");
@@ -71,11 +79,48 @@ function changeForm(type) {
 }
 
 let rowCount = 2;
+
 function addRow() {
-  // TODO: Add row based on rowCount and copy the prev one
+  fetch("./templates/inputRow.html")
+    .then((response) => {
+      if (response.ok) {
+        return response.text();
+      }
+    })
+    .then((row) => {
+      row = row.replaceAll("TEMPLATE", `${rowCount + 1}`);
+      const element = document.createElement("div");
+      element.classList.add("px-5", "pb-2");
+      element.setAttribute("id", `row${rowCount + 1}`);
+      element.innerHTML = row;
+      document
+        .getElementById(`row${rowCount}`)
+        .insertAdjacentElement("afterend", element);
+    });
+
+  fetch("./templates/tableRow.html")
+    .then((response) => {
+      if (response.ok) {
+        return response.text();
+      }
+    })
+    .then((row) => {
+      row = row.replaceAll("TEMPLATE", `${rowCount + 1}`);
+      const element = document.createElement("tr");
+      element.setAttribute("id", `r${rowCount + 1}`);
+      element.innerHTML = row;
+      document.getElementById(`r${rowCount}`).insertAdjacentElement("afterend", element);
+      rowCount += 1;
+    });
 }
+
 function removeRow() {
-  // TODO: Remove row based on rowCount
+  if (rowCount > 1) {
+    document.getElementById(`row${rowCount}`).remove();
+    document.getElementById(`r${rowCount}`).remove();
+    rowCount -= 1;
+    calculateGrandTotal();
+  }
 }
 
 function changeItem(id, type, event) {
@@ -88,6 +133,7 @@ function changeItem(id, type, event) {
       document.querySelector(`#r${id}>#total`).innerHTML = USDollar.format(
         event.target.value * document.querySelector(`#r${id}>#price`).innerHTML.slice(1)
       );
+      calculateGrandTotal();
       break;
     case "price":
       document.querySelector(`#r${id}>#${type}`).innerHTML = USDollar.format(
@@ -96,8 +142,18 @@ function changeItem(id, type, event) {
       document.querySelector(`#r${id}>#total`).innerHTML = USDollar.format(
         event.target.value * document.querySelector(`#r${id}>#quant`).innerHTML
       );
+      calculateGrandTotal();
       break;
   }
 }
 
-function calculateGrandTotal() {}
+function calculateGrandTotal() {
+  let total = 0;
+  for (let i = 1; i <= rowCount; i++) {
+    total += +document
+      .querySelector(`#r${i}>#total`)
+      .innerHTML.slice(1)
+      .replaceAll(",", "");
+    document.getElementById("grand_total").innerHTML = USDollar.format(total);
+  }
+}

@@ -30,7 +30,12 @@
                 >
                   <img class="w-10 h-1w-10" src="./assets/upload.svg" alt="Upload" />
                   <span class="mt-2 text-base leading-normal">Upload Logo</span>
-                  <input type="file" class="hidden" />
+                  <input
+                    accept="image/*"
+                    type="file"
+                    class="hidden"
+                    onchange="displayLogo(event)"
+                  />
                 </label>
               </div>
 
@@ -177,12 +182,11 @@ CityY 12345"
     </div>
     <div class="flex col-span-2 col-start-3 mb-20">
       <div class="my-10 border border-black shadow-2xl">
+        <!-- Preview pdf page -->
         <div id="preview" class="w-[21cm] h-[29.7cm] scale-75 -mt-20"></div>
       </div>
     </div>
 
-    <!-- Form page 2 -->
-    <!-- Form page 2 -->
     <!-- Form page 2 -->
     <div id="second" class="fixed flex h-screen -left-[50rem]">
       <div class="p-2 m-auto shadow outline outline-gray-300 rounded-xl w-[500px]">
@@ -218,7 +222,7 @@ CityY 12345"
                     name="item_quantity[]"
                     oninput="changeItem(1, 'quant', event)"
                     required
-                    class="w-full px-1 py-2 mt-2 text-base placeholder-gray-400 border-2 border-gray-400 rounded-lg"
+                    class="w-full px-4 py-2 mt-2 text-base placeholder-gray-400 border-2 border-gray-400 rounded-lg"
                   />
                 </div>
                 <div class="relative">
@@ -237,7 +241,6 @@ CityY 12345"
                 </div>
               </div>
             </div>
-            <!-- 2nd Row -->
             <div class="px-5 pb-2" id="row2">
               <div class="flex gap-4">
                 <div class="relative w-[350px]">
@@ -246,7 +249,7 @@ CityY 12345"
                     >Item Description</label
                   >
                   <input
-                    placeholder="Table"
+                    placeholder="Chair"
                     name="item_description[]"
                     oninput="changeItem(2,'name', event)"
                     class="w-full px-4 py-2 mt-2 text-base placeholder-gray-400 border-2 border-gray-400 rounded-lg"
@@ -257,12 +260,12 @@ CityY 12345"
                     >Quantity</label
                   >
                   <input
-                    placeholder="1"
+                    placeholder="3"
                     type="number"
                     name="item_quantity[]"
                     oninput="changeItem(2, 'quant', event)"
                     required
-                    class="w-full px-1 py-2 mt-2 text-base placeholder-gray-400 border-2 border-gray-400 rounded-lg"
+                    class="w-full px-4 py-2 mt-2 text-base placeholder-gray-400 border-2 border-gray-400 rounded-lg"
                   />
                 </div>
                 <div class="relative">
@@ -271,7 +274,7 @@ CityY 12345"
                     >Unit Price</label
                   >
                   <input
-                    placeholder="400"
+                    placeholder="200"
                     type="number"
                     name="item_price[]"
                     oninput="changeItem(2, 'price', event)"
@@ -324,12 +327,14 @@ Account NO: 123-456-7890"
           <hr class="mt-4" />
           <div class="flex flex-row-reverse gap-2 p-3">
             <div class="flex-initial">
-              <button
-                type="button"
-                class="flex items-center px-5 py-2.5 font-medium tracking-wide text-white capitalize bg-black rounded-md transition-all ease-in hover:bg-stone-950 duration-150"
-              >
-                Generate
-              </button>
+              <a href="./pdfGenerator.php">
+                <button
+                  type="button"
+                  class="flex items-center px-5 py-2.5 font-medium tracking-wide text-white capitalize bg-black rounded-md transition-all ease-in hover:bg-stone-950 duration-150"
+                >
+                  Generate
+                </button>
+              </a>
             </div>
             <div class="flex-initial">
               <button

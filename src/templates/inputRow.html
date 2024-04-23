@@ -1,0 +1,37 @@
+<div class="flex gap-4">
+  <div class="relative w-[350px]">
+    <label class="absolute px-2 text-sm tracking-wide bg-white left-2 -top-1"
+      >Item Description</label
+    >
+    <input
+      placeholder="Item"
+      name="item_description[]"
+      oninput="changeItem(TEMPLATE,'name', event)"
+      class="w-full px-4 py-2 mt-2 text-base placeholder-gray-400 border-2 border-gray-400 rounded-lg"
+    />
+  </div>
+  <div class="relative w-[150px]">
+    <label class="absolute text-sm tracking-wide bg-white left-2 -top-1">Quantity</label>
+    <input
+      placeholder="0"
+      type="number"
+      name="item_quantity[]"
+      oninput="changeItem(TEMPLATE, 'quant', event)"
+      required
+      class="w-full px-4 py-2 mt-2 text-base placeholder-gray-400 border-2 border-gray-400 rounded-lg"
+    />
+  </div>
+  <div class="relative">
+    <label class="absolute px-2 text-sm tracking-wide bg-white left-2 -top-1"
+      >Unit Price</label
+    >
+    <input
+      placeholder="0"
+      type="number"
+      name="item_price[]"
+      oninput="changeItem(TEMPLATE, 'price', event)"
+      required
+      class="w-full px-4 py-2 mt-2 text-base placeholder-gray-400 border-2 border-gray-400 rounded-lg"
+    />
+  </div>
+</div>

@@ -1,5 +1,7 @@
 <?php
 
+// TODO: Make the index.html thing a form so it can get processed by this php file
+
 use Spatie\Browsershot\Browsershot;
 
 require __DIR__ . "/../vendor/autoload.php";
@@ -7,7 +9,6 @@ require __DIR__ . "/../vendor/autoload.php";
 Browsershot::url('http://localhost/PHP-pdf/src/pdf.html')->save('../docs/document.pdf');
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
