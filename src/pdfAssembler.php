@@ -78,16 +78,14 @@
     <!-- Total -->
     <div class="flex items-center justify-end gap-4 px-2 py-4">
         <h1 class="text-xl">TOTAL:</h1>
-        <p class="text-xl">$1,000.00</p>
+        <p class="text-xl"><?= $_POST['grand_total'] ?></p>
     </div>
 
     <!-- Footer -->
     <div class="mt-auto">
         <h1 class="font-bold">Payment Information</h1>
         <p>
-            Monopoly Bank <br />
-            Account name: Trinity LLC. <br />
-            Account NO: 123-456-7890
+            <?= $_POST['document_payment_info'] ?>
         </p>
     </div>
 </body>

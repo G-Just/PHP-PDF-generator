@@ -85,6 +85,8 @@ function addRow(event) {
     .then((response) => {
       if (response.ok) {
         return response.text();
+      } else {
+        throw new Error("Failed to fetch inputRow.html");
       }
     })
     .then((row) => {
@@ -102,6 +104,8 @@ function addRow(event) {
     .then((response) => {
       if (response.ok) {
         return response.text();
+      } else {
+        throw new Error("Failed to fetch tableRow.html");
       }
     })
     .then((row) => {
@@ -110,8 +114,9 @@ function addRow(event) {
       element.setAttribute("id", `r${rowCount + 1}`);
       element.innerHTML = row;
       document.getElementById(`r${rowCount}`).insertAdjacentElement("afterend", element);
-      rowCount += 1;
     });
+  rowCount += 1;
+  console.log(rowCount);
 }
 
 function removeRow(event) {
@@ -119,9 +124,10 @@ function removeRow(event) {
   if (rowCount > 1) {
     document.getElementById(`row${rowCount}`).remove();
     document.getElementById(`r${rowCount}`).remove();
-    rowCount -= 1;
     calculateGrandTotal();
   }
+  rowCount -= 1;
+  console.log(rowCount);
 }
 
 function changeItem(id, type, event) {
@@ -134,7 +140,7 @@ function changeItem(id, type, event) {
       document.querySelector(`#r${id}>#total`).innerHTML = USDollar.format(
         event.target.value * document.querySelector(`#r${id}>#price`).innerHTML.slice(1)
       );
-      document.getElementById("total_price").value =
+      document.getElementById(`total_price${id}`).value =
         event.target.value * document.querySelector(`#r${id}>#price`).innerHTML.slice(1);
       calculateGrandTotal();
       break;
@@ -145,7 +151,7 @@ function changeItem(id, type, event) {
       document.querySelector(`#r${id}>#total`).innerHTML = USDollar.format(
         event.target.value * document.querySelector(`#r${id}>#quant`).innerHTML
       );
-      document.getElementById("total_price").value =
+      document.getElementById(`total_price${id}`).value =
         event.target.value * document.querySelector(`#r${id}>#price`).innerHTML.slice(1);
       calculateGrandTotal();
       break;
@@ -160,5 +166,6 @@ function calculateGrandTotal() {
       .innerHTML.slice(1)
       .replaceAll(",", "");
     document.getElementById("grand_total").innerHTML = USDollar.format(total);
+    document.getElementById("total_input").value = total;
   }
 }
